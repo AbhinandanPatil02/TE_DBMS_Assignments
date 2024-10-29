@@ -113,7 +113,8 @@ public class StudentDatabase {
 
                 System.out.println("Student updated successfully.");
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
