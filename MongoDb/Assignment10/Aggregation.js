@@ -34,3 +34,5 @@ db.Mycollection.aggregate([
 
 
 db.Mycollection.aggregate ([ {$group :{ _id : "$Branch" , count : { $sum :1}}}]);
+
+
