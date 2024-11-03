@@ -79,3 +79,70 @@ db.Result_mapReduc1.find();
 
 
 
+
+db.practiceAgg.insertMany([
+  {
+      "Roll_no":1,
+      "Name": "Abhinandan",
+      "Marks":[
+          {"Maths":98},{"Chemistry":90},{"Physics":85}
+      ],
+      "fav_game":"Cricket",
+      "Phone_no":12345678
+
+  },
+  {
+      "Roll_no":2,
+      "Name": "Virat",
+      "Marks":[
+          {"Maths":90},{"Chemistry":89},{"Physics":55}
+      ],
+      "fav_game":"kho-kho",
+      "Phone_no":12345678
+
+  },
+  {
+      "Roll_no":3,
+      "Name": "Rohit",
+      "Marks":[
+          {"Maths":28},{"Chemistry":85},{"Physics":15}
+      ],
+      "fav_game":"Cricket",
+      "Phone_no":12345678
+
+  },
+  {
+      "Roll_no":4,
+      "Name": "Thala",
+      "Marks":[
+          {"Maths":70},{"Chemistry":70},{"Physics":70}
+      ],
+      "fav_game":"Cricket",
+      "Phone_no":12345678
+
+  },
+  {
+      "Roll_no":5,
+      "Name": "Hardik",
+      "Marks":[
+          {"Maths":77},{"Chemistry":40},{"Physics":65}
+      ],
+      "fav_game":"Cricket",
+      "Phone_no":12345678
+  },
+
+]
+)
+
+
+
+var mapfunction= function(){emit(this.Roll_no,this.Phone_no)};
+var reducefunction =function (key,val){return Array.avg(val)};
+db.practiceAgg.mapReduce(mapfunction,reducefunction,{'out':"ResultOfMpr"});
+db.practiceAgg.mapReduce(mapfunction,reducefunction,{query:{Roll_no:{$gte:3}}  ,'out':"ResultOfMpr"});
+
+
+// aum and avg
+
+db.ResultOfMpr.find();
+

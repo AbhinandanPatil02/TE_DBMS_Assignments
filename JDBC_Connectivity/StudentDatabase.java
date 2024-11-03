@@ -56,7 +56,8 @@ public class StudentDatabase {
                         System.out.println("Invalid choice. Try again.");
                 }
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
