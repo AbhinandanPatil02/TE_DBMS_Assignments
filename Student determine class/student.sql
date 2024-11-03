@@ -1,57 +1,56 @@
 
 
 CREATE TABLE student (
-    roll INT,
+    roll_no INT PRIMARY KEY,
     name VARCHAR(30),
-    mark INT 
+    marks INT DEFAULT 0
 );
-
-create table result(
-    roll INT,
+CREATE TABLE result (
+    roll_no INT PRIMARY KEY,
     name VARCHAR(30),
+    marks INT DEFAULT 0,
     class VARCHAR(30)
 );
 
 
-INSERT INTO student values(1,"Abhi",75);
-INSERT INTO student values(2,"Aniruddha",85);
-INSERT INTO student values(3,"Sahil",55);
-INSERT INTO student values(4,"Onkar",45);
+INSERT INTO student VALUES (1,"Abhi",1456);
+INSERT INTO student VALUES (2,"Sahil",900);
+INSERT INTO student VALUES (3,"Manav",786);
+INSERT INTO student VALUES (4,"Aniruddha",892);
+
+DELIMITER &&
+CREATE OR REPLACE FUNCTION detclass(marks INT)
+RETURNS VARCHAR(30)
+DETERMINISTIC
+BEGIN
+DECLARE class VARCHAR (30);
+IF marks>=900 AND marks <=1500 THEN 
+    set class ="Destinction";
+ELSEIF marks>=800 AND marks<=899 THEN 
+    set class ="First Class";
+ELSEIF marks >=825 AND marks <=799 THEN
+    set class ="Higher Second Class";
+ELSE 
+    set class="Not classified";
+END IF;
+RETURN class;
+END &&
+DELIMITER ;
 
 
+DELIMITER &&
+CREATE OR REPLACE procedure classdet(IN roll_no INT)
+BEGIN 
+DECLARE name VARCHAR(30) ;
+DECLARE marks INT;
+DECLARE class VARCHAR(30);
 
-delimiter &&
- CREATE OR REPLACE FUNCTION calmarks(marks INT)
-    returns varchar(30)
-    deterministic
-    begin
-    declare class varchar (30);
-    if marks >=80 AND marks <=100 THEN
-         set class ="A1";
-    elseif marks>=50 AND marks<=79 THEN
-         set class ="A2";
-    else
-        set class="A3";
-    end if;
-    return class;
-    end &&
-delimiter ;
+SELECT s.name ,s.marks INTO name,marks from student as s WHERE s.roll_no=roll_no;
+SET class =detclass(marks);
+INSERT INTO result VALUES(roll_no,name,marks,class);
+END &&
 
 
-
-
-delimiter &&
-    create or replace procedure  pro1(IN roll INT)
-    begin
-    declare r INT ;
-    declare n VARCHAR(30);
-    declare mr INT;
-    declare class varchar(30);
-    select s.roll ,s.name ,s.mark INTO r,n,mr FROM student s WHERE roll=s.roll;
-    set class = calmarks(mr);
-    INSERT INTO result values (r,n,class);
-    END &&
-delimiter ;
 
 
 
