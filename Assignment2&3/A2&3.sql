@@ -25,6 +25,7 @@ CREATE TABLE employee(
     emp_joindate DATE,
     FOREIGN KEY (dept_id) REFERENCES dept(dept_id) ON DELETE CASCADE
 );
+
 INSERT INTO employee VALUES (1,1,"Abhi","Pos_1",78555,"2022-08-12");
 INSERT INTO employee VALUES (2,2,"Harshad","Pos_2",78555,"2012-08-12");
 INSERT INTO employee VALUES (3,1,"Vinayak","Pos_3",78555,"2022-02-12");
@@ -131,13 +132,10 @@ INSERT INTO project VALUES(4,2,"Proj_4","Mumbai",5451555,2024);
 --    CREATE OR REPLACE VIEW empdept AS SELECT * FROM employee NATURAL JOIN dept;
 
 -- 10. Perform Manipulation on simple view-Insert, update, delete, drop view.
---    INSERT INTO empdept (dept_id , emp_id , emp_name , emp_position , emp_salary , emp_joindate , emp_join_year , dept_name , dept_location ) VALUES (2, 13 ,"Sandesh","pos_8",85144,"2015-04-01",2003,"Dept_3","Mumbai");
---    UPDATE empdept set emp_name="Changed_name" where emp_id = 2;
---    DELETE from empdept where emp_id =2;
---    drop empdept;
-
-
-
+--     INSERT INTO empdept (dept_id , emp_id , emp_name , emp_position , emp_salary , emp_joindate , emp_join_year , dept_name , dept_location ) VALUES (2, 13 ,"Sandesh","pos_8",85144,"2015-04-01",2003,"Dept_3","Mumbai");
+--     UPDATE empdept set emp_name="Changed_name" where emp_id = 2;
+--     DELETE from empdept where emp_id =2;
+--     drop empdept;
 
 
 

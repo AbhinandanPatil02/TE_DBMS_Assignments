@@ -60,8 +60,6 @@ db.Mycollection.insertOne( {
       { _id: 'Onkar', value: 5 },
       { _id: 'Sahil', value: 2 }
     ]
-
-
     
 var mapfunction = function(){emit(null,this.Roll_no)}; 
 
