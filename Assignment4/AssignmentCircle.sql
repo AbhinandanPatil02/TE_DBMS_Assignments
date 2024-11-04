@@ -4,21 +4,20 @@ create table area2(
     areacal float
 );
 
+
 DELIMITER &&
-CREATE OR REPLACE PROCEDURE calarea2()
-BEGIN
-DECLARE rad INT DEFAULT 5;
-DECLARE ar FLOAT;
-
-WHILE rad <=9 DO
-SET ar=3.14*rad*rad;
-INSERT INTO area2 VALUES (rad,ar);
-SET rad=rad+1;
-END WHILE;
-
+CREATE OR REPLACE procedure calarea(in rad INT)
+BEGIN 
+DECLARE area FLOAT DEFAULT 0;
+if rad<5 or rad >9 THEN 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Invalid radius (select value between 5 to 9 )";
+else 
+    SET area=3.14*rad*rad;
+    INSERT INTO calareaofcircle VALUES (rad,area);
+END if;
 END &&
-
 DELIMITER ;
+
 
 
 
