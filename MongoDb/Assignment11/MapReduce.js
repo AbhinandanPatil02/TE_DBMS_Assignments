@@ -144,3 +144,5 @@ db.practiceAgg.mapReduce(mapfunction,reducefunction,{query:{Roll_no:{$gte:3}}  ,
 
 db.ResultOfMpr.find();
 
+
+

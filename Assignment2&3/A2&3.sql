@@ -17,7 +17,7 @@ INSERT INTO dept VALUES (4,"Computer","Kolhapur");
 INSERT INTO dept VALUES (5,"IT","Kolhapur");
 
 CREATE TABLE employee(
-    emp_id INT PRIMARY KEY,
+    emp_id INT AUTO INCREMENT PRIMARY KEY,
     dept_id INT,
     emp_name VARCHAR(30),
     emp_position VARCHAR(30),

@@ -15,6 +15,8 @@ create table libaudit(
 );
 
 
+
+
 INSERT INTO lib values(1,"Book_1","Auth_1",1960);
 INSERT INTO lib values(2,"Book_2","Auth_2",2003);
 INSERT INTO lib values(3,"Book_3","Auth_3",2005);

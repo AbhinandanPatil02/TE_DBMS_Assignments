@@ -1,152 +1,286 @@
 
+// $match $group $project $sort $limit $skip $unwind $lookup $addFields $merge
 
+// $toLower / $toUpper 
 
-
-db.Mycollection.aggregate([
-
-   { 
-        $group :{
-            _id:null,
-            averageofRoll_no:{
-                $avg: "Roll_no"
-            }
-
-        }
-    }   
-    
-]);
-
-db.Mycollection.aggregate([ { $match : {$and :[ {"Branch" :"CS"} , {"Name" :"Abhi"}]}}]);
-
-
-db.Mycollection.aggregate([ { $match: { "Branch": "CS" } }, { $project: { Name: 1, Roll_no: 1 } }] );
-
-
-db.Mycollection.aggregate([
-     {
-               $match :{
-                    Branch :"CS"
-                }
-     },
-        {
-               $count : 'CS Branch Students'
-        }]);
-
-
-db.Mycollection.aggregate ([ {$group :{ _id : "$Branch" , count : { $sum :1}}}]);
+// $sum: Sums values for a group of documents.
+// $avg: Calculates the average for a group of documents.
+// $min / $max: Finds the minimum/maximum value in a group.
+// $push: Adds values to an array.
 
 
 
 
-
-
-db.practiceAgg.insertMany([
-    {
+db.student2.insertMany(
+    [
+      {
         "Roll_no":1,
-        "Name": "Abhinandan",
-        "Marks":[
-            {"Maths":98},{"Chemistry":90},{"Physics":85}
-        ],
-        "fav_game":"Cricket",
-        "Phone_no":12345678
-
-    },
-    {
+        "Name":"Abhi",
+        "Marks":95,
+        "Fav_game":"Cricket"
+      },
+      {
         "Roll_no":2,
-        "Name": "Virat",
-        "Marks":[
-            {"Maths":90},{"Chemistry":89},{"Physics":55}
-        ],
-        "fav_game":"kho-kho",
-        "Phone_no":12345678
-
-    },
-    {
+        "Name":"Virat",
+        "Marks":85,
+        "Fav_game":"Chess"
+      },
+      {
         "Roll_no":3,
-        "Name": "Rohit",
-        "Marks":[
-            {"Maths":28},{"Chemistry":85},{"Physics":15}
-        ],
-        "fav_game":"Cricket",
-        "Phone_no":12345678
-
-    },
-    {
+        "Name":"Rohit",
+        "Marks":75,
+        "Fav_game":"Kho-Kho"
+      },
+      {
         "Roll_no":4,
-        "Name": "Thala",
-        "Marks":[
-            {"Maths":70},{"Chemistry":70},{"Physics":70}
-        ],
-        "fav_game":"Cricket",
-        "Phone_no":12345678
-
-    },
-    {
+        "Name":"Thala",
+        "Marks":77,
+        "Fav_game":"Cricket"
+      },
+      {
         "Roll_no":5,
-        "Name": "Hardik",
-        "Marks":[
-            {"Maths":77},{"Chemistry":40},{"Physics":65}
-        ],
-        "fav_game":"Cricket",
-        "Phone_no":12345678
-    },
-
-]
-)
-
-
-
-
-
-db.practiceAgg.aggregate([
-    { $unwind: "$Marks" },
+        "Name":"Hardik",
+        "Marks":80,
+        "Fav_game":"Cricket"
+      },
+      {
+        "Roll_no":6,
+        "Name":"Kunal",
+        "Marks":84,
+        "Fav_game":"Kabaddi"
+      },
+      {
+        "Roll_no":7,
+        "Name":"Narendra",
+        "Marks":56,
+        "Fav_game":"Stock-Market"
+      },
+      {
+        "Roll_no":8,
+        "Name":"Rahul",
+        "Marks":35,
+        "Fav_game":"Cricket"
+      },
+      {
+        "Roll_no":9,
+        "Name":"Carry",
+        "Marks":45,
+        "Fav_game":"Cricket"
+      },
+      {
+        "Roll_no":10,
+        "Name":"Ravindra",
+        "Marks":89,
+        "Fav_game":"Cricket"
+      },
+    ]
+  );
+  
+  
+  db.student2.insertOne({
+    "Roll_no":12,
+    "Name":"Satish",
+    "Marks":[{"Maths":50},{"Physics":87},{"Chemistry":88}],
+    "Fav_game":"Kabaddi"
+  })
+  
+  
+  
+  // -----------------------------------------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------------------
+  db.student2.find({},{Roll_no:1,Name:1}).limit(2);
+  [
     {
-      $group: {
-        _id: "$Roll_no",
-        Name:{$first:"$Name"},
-        avgmarks: { $avg: { $getField: { field: "v", input: { $arrayElemAt: [ { $objectToArray: "$Marks" }, 0 ] } } } }
-      }
+      _id: ObjectId('6728a366ffd101a3da86b01d'),
+      Roll_no: 1,
+      Name: 'Abhi'
     },
     {
-        $match:{
-            avgmarks:{$gt:75}
-        }
+      _id: ObjectId('6728a366ffd101a3da86b01e'),
+      Roll_no: 2,
+      Name: 'Virat'
     }
-  ]);
+  ]
+  
   
 
 
-db.practiceAgg.aggregate([
-    {
-        $unwind: "$Marks"
-    }
-    ,
-    {
-        $group:{
-            _id:"$Roll_no",
-            Name:{$first:"$Name"},
-            MathsMarks:{
-                $first:"$Marks.Maths"
-            }
-        }
-    },
+
+
+// $match $group $project $sort $limit $skip $unwind $lookup $addFields $merge
+
+// $toLower / $toUpper 
+
+// $sum: Sums values for a group of documents.
+// $avg: Calculates the average for a group of documents.
+// $min / $max: Finds the minimum/maximum value in a group.
+// $push: Adds values to an array.
+
+
+//  sum max min avg 
+
+// marks gt 50 
+db.student2.aggregate([
     {
         $match:{
-
-            MathsMarks:{$gt:75}
+            Marks:{$gt:50}
         }
     }
 ]);
 
-db.practiceAgg.aggregate([
+//Avg of marks
+// marks : [{"maths":52},{}]
+db.student2.aggregate([
     {
-        $unwind:"Marks"
+        $unwind:"$Marks"
+    },
+    {
+        $group:{
+            _id: null,
+            avgmarks:{
+                $avg:"$Marks"
+            }
+        }
+    }
+
+]);
+
+// sum of all marks
+db.student2.aggregate(
+    [
+        {
+            $unwind:"$Marks"
+        },
+        {
+            $group:{
+                _id:null,
+                sumvalue:{$sum:"$Marks"}
+            }
+        }
+    ]
+);
+
+// minimum marks
+db.student2.aggregate([
+    {
+        $unwind: "$Marks"
     },
     {
         $group:{
             _id:null,
-            avgofm:{$avg:"Marks.Maths"}
+            // Name:{$first:"$Name"},
+            minval:{$min:"$Marks"}
         }
+    }
+]);
+
+
+// find out the array that contains  names of student who like cricket 
+db.student2.aggregate([
+    {
+        $match:{
+            "Fav_game":"Cricket"
+        }
+    },
+    {
+        $group:{
+            _id:null,
+            array:{$push:"$Name"}
+        }
+    }
+]);
+
+
+// sort the elements according to their marks
+db.student2.aggregate([
+    {
+        $unwind:"$Marks"
+    },
+    {
+        $sort:{
+            "Marks":-1
+        }
+    },
+    {
+        $project:{
+            Name:1,
+            marks:1
+        }
+    }
+]);
+
+
+//maximum marks
+db.student2.aggregate([
+    {
+        $unwind:"$Marks"
+    },
+    {
+        $group:{
+            _id:null,
+            maxmarks:{$max:"$Marks"}
+        }
+    }
+]);
+
+// no of students who likes cricket
+
+db.student2.aggregate([
+    {
+        $match:{
+            "Fav_game":"Cricket"
+        }
+    },
+    {
+        $group:{
+            _id:null,
+            count:{$sum:1}
+        }
+    }
+]);
+
+
+// no of students who likes kabaddi,kho-kho,chess
+
+db.student2.aggregate([
+    {
+        $match:{
+            "Fav_game":{$in:["kabaddi","kho-kho","chess"]}
+        }
+    },
+    {
+        $group:{
+            _id:null,
+            count :{$sum:1}
+        }
+    }
+    
+]);
+
+
+
+// display top 5  student marks with highest value
+db.student2.aggregate([
+    {
+        
+        $sort:{"Marks":-1}
+         
+    },
+    {
+        $project:{
+            Name:1,
+            Marks:1
+        }
+    },
+    {
+        $group:{
+            _id:"$Name",
+            marks:{$push:"$Marks"}
+        }
+
+    },
+    {
+        $limit:5
     }
 ]);
 
@@ -154,14 +288,34 @@ db.practiceAgg.aggregate([
 
 
 
+db.student2.aggregate([
+    {
+        $group:{
+            _id:null,
+            count:{$sum:1}
+        }
+    }
+]);
 
 
-
-
-
-
-
-
+db.student2.aggregate([
+        //  {
+        //      $unwind:"$Marks"
+        //  },
+        //  {
+        //      $group:{
+        //          _id: "$Roll_no",
+        //          avgmarks:{
+        //              $avg:"$Marks"
+        //          }
+        //      }
+        //  },
+         {
+            $sort:{"Roll_no":-1}
+         }
+         
+    
+ ]);
 
 
 
