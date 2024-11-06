@@ -277,14 +277,11 @@ db.student2.aggregate([
             _id:"$Name",
             marks:{$push:"$Marks"}
         }
-
     },
     {
         $limit:5
     }
 ]);
-
-
 
 
 
@@ -317,6 +314,18 @@ db.student2.aggregate([
     
  ]);
 
+
+
+ db.student2.aggregate([
+    {
+        $match:{
+            "Fav_game":"Cricket"
+        }
+    },
+    {
+        $count:"Fav_game"
+    }
+ ]);
 
 
 

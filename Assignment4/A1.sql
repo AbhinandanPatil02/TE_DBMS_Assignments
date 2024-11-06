@@ -154,9 +154,9 @@ END IF;
 SELECT b.date_of_issue INTO date_of_issue FROM borrower b WHERE b.roll_no=roll;
 SET days = DATEDIFF(CURDATE(),date_of_issue);
 if days>15 AND days <=30 THEN 
-    set amt=5*days;
+    set amt=5*(days-15);
 ELSEIF days>30 THEN
-    set amt=50*days;
+    set amt=50*(days-30)+75;
 END IF;
 UPDATE borrower SET status ="Returned" WHERE roll_no=roll;
 IF amt>0 THEN
@@ -165,6 +165,7 @@ END IF;
 
 END &&
     
+DELIMITER ;
 
 
 
